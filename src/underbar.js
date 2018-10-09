@@ -110,12 +110,12 @@
     } else {
       var cache = {};
       var result = [];
-      for(var i=0; i<array.length; i++){
-        if(!cache.hasOwnProperty(iterator(array[i]))) {
-          cache[iterator(array[i])] = i;
-          result.push(array[i]);  
+      _.each(array, function(elem, index) {
+        if(!cache.hasOwnProperty(iterator(elem))) {
+          cache[iterator(elem)] = index;
+          result.push(elem);
         }
-      }
+      });
       return result;
     }
   };
@@ -127,9 +127,9 @@
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     var results = [];
-    for(var i = 0; i < collection.length; i++) {
-      results.push(iterator(collection[i]));
-    }
+    _.each(collection, function(elem) {
+      results.push(iterator(elem));
+    });
     return results;
   };
 
@@ -184,7 +184,7 @@
         result = iterator(result, elem, i, collection);
       }
       return result;
-  } else {
+    } else {
       var result = accumulator;
       for (var key in collection) {
         var elem = collection[key];
